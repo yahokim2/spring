@@ -1,10 +1,10 @@
-package spring.product.user.dao;
+package spring.product.api.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import spring.product.user.vo.ScientistVo;
+import spring.product.api.vo.ScientistVo;
 
 public interface ScientistDao {
 

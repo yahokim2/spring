@@ -1,4 +1,4 @@
-package spring.product.user.controller;
+package spring.product.api.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import spring.product.user.dao.ScientistDao;
-import spring.product.user.dto.ScientistResDto;
-import spring.product.user.vo.ScientistVo;
+import spring.product.api.dao.ScientistDao;
+import spring.product.api.dto.ScientistResDto;
+import spring.product.api.vo.ScientistVo;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class ScientistController {
   final ModelMapper modelMapper;
   final ScientistDao scientistDao;
   
-  @GetMapping("/user/v1/scientist/all")
+  @GetMapping("/product/scientist/all")
   public ResponseEntity<ScientistResDto.ScientistList> findAll() {
     List<ScientistVo> result = scientistDao.findAll();
     ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
@@ -32,7 +32,7 @@ public class ScientistController {
     return ResponseEntity.ok(resDto);
   }
   
-  @GetMapping("/user/v1/scientist/{id}")
+  @GetMapping("/product/scientist/{id}")
   public ResponseEntity<ScientistResDto.Scientist> findById(@PathVariable(name = "id") String id) {
     ScientistVo result = scientistDao.findById(id);
     ScientistResDto.Scientist resDto = modelMapper.map(result, ScientistResDto.Scientist.class);

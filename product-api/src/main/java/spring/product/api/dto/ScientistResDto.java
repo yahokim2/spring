@@ -1,9 +1,9 @@
-package spring.product.user.dto;
+package spring.product.api.dto;
 
 import java.util.List;
 
 import lombok.Data;
-import spring.product.user.vo.ScientistVo;
+import spring.product.api.vo.ScientistVo;
 
 @Data
 public class ScientistResDto {

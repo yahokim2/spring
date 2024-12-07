@@ -1,4 +1,4 @@
-package spring.product.user.dto;
+package spring.product.api.dto;
 
 import lombok.Data;
 

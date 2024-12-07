@@ -1,4 +1,4 @@
-package spring.product.user.vo;
+package spring.product.api.vo;
 
 import lombok.Data;
 
