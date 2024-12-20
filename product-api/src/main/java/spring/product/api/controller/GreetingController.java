@@ -115,7 +115,7 @@ public class GreetingController {
 //    movie.setRating(1);
     
     movie1.setTitle("베테랑");
-    movie1.setGenre("액션코믹");
+    movie1.setGenre("액션코믹4");
     movie1.setRating(2);
     
     return ResponseEntity.ok(resDto);

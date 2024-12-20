@@ -14,5 +14,37 @@
     FROM   scientist
     WHERE  id = #{id}
   </select>
+
+  <select id="findByName" resultType="ScientistVo">
+    SELECT *
+    FROM   scientist
+    WHERE  name = #{name}
+  </select>
+
+  <select id="findByNames" resultType="ScientistVo">
+    SELECT *
+    FROM   scientist
+    WHERE  name LIKE CONCAT('%',#{names},'%')
+  </select>
+
+  <insert id="add">
+    INSERT INTO scientist (
+      name, create_id, modify_id
+    ) VALUES (
+      #{name}, 1, 1
+    )
+  </insert>
+  
+  <update id="modify">
+    UPDATE scientist
+    SET name = #{name}
+    WHERE id = #{id}
+  </update>
+  
+  <delete id="delete" >
+    DELETE
+    FROM scientist
+    WHERE id = #{id}  
+  </delete>
   
 </mapper>
