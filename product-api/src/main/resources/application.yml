@@ -15,7 +15,7 @@ spring:
       pool-name: hikari
   sql:
     init:
-      mode: always
+      mode: never
       platform: postgres
       schema-locations: classpath:schema-postgres.sql
       data-locations: classpath:data.sql

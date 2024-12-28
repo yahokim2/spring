@@ -1,5 +1,7 @@
 package spring.product.api.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import spring.product.api.dao.ScientistDao;
 import spring.product.api.dto.ScientistReqDto;
 import spring.product.api.dto.ScientistResDto;
 import spring.product.api.vo.ScientistVo;
+import spring.product.api.vo.SongVo;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,11 +33,55 @@ public class ScientistController {
   @GetMapping("/product/scientist/all")
   public ResponseEntity<ScientistResDto.ScientistList> findAll() {
     List<ScientistVo> result = scientistDao.findAll();
+
+//    System.out.println("##1 scientists list = ");
+//    System.out.println(result);
+
+    
     ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
+ 
+//    System.out.println("~~2 scientistlist list ~~ resDto = ");
+//    System.out.println(resDto);
+    
     List<ScientistResDto.Scientist> list = result.stream()
         .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
     resDto.setList(list);
+    
+    // 자료구조 연습1 : 단순 List
+//    List<String> songs = new ArrayList<String>();
+//    
+//    songs.add("somersault");
+//    songs.add("cassidy");
+//    songs.add("$10");
+//    songs.add("havana");
+//    songs.add("Cassidy");
+//    songs.add("50 Ways");
+//
+//    System.out.println("songs list = " + songs);
+//
+//    Collections.sort(songs);
+//    System.out.println("songs list (sorted) = " + songs);
+
+    // 자료구조 연습2 : 클래스 List
+
+
+    List<SongVo> songs = new ArrayList<>();
+    
+   
+    
+    songs.add(new SongVo("somersault","zero 7", 147));    
+    songs.add(new SongVo("cassidy","greatful dead", 158));
+    songs.add(new SongVo("$10","hitchhiker", 140));
+    songs.add(new SongVo("havana","cabello", 105));
+    songs.add(new SongVo("sCassidy","greatful dead", 158));
+    songs.add(new SongVo("50 ways","simon", 102));
+  
+    System.out.println("song객체  list = " + songs);  
+//    Collections.sort(songs);
+    System.out.println("song객체 list (sorted) = " + songs);
+
+    
     return ResponseEntity.ok(resDto);
   }
   
@@ -51,20 +99,21 @@ public class ScientistController {
     return ResponseEntity.ok(resDto);
   }
   
-  @GetMapping("/product/scientist/name/{name}")
-  public ResponseEntity<ScientistResDto.Scientist> findByName(@PathVariable(name = "name") String name) {
+  @GetMapping("/product/scientist")
+  public ResponseEntity<ScientistResDto.Scientist> findByName(@RequestParam(name = "name") String name) {
     
     System.out.println(name);
     
     ScientistVo result = scientistDao.findByName(name);
-    
+//    String a  = 'http://localhost:8080/product/scientist/names?names=A';
+    String a  = "http://localhost:8080/product/scientist/names?names=A";
     ScientistResDto.Scientist resDto = modelMapper.map(result, ScientistResDto.Scientist.class);
     return ResponseEntity.ok(resDto);
 
   }  
 
-  @GetMapping("/product/scientist/names/{names}")
-  public ResponseEntity<ScientistResDto.ScientistList> findNames(@PathVariable(name="names") String names) {
+  @GetMapping("/product/scientist/names")
+  public ResponseEntity<ScientistResDto.ScientistList> findNames(@RequestParam(name="names") String names) {
     List<ScientistVo> result = scientistDao.findByNames(names);
     ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     List<ScientistResDto.Scientist> list = result.stream()
@@ -91,7 +140,7 @@ public class ScientistController {
   }
   
   @PostMapping("/product/scientist")
-  public ResponseEntity<?> addById(@RequestBody ScientistReqDto.AddScientist reqDto) {
+  public ResponseEntity<?> add(@RequestBody ScientistReqDto.AddScientist reqDto) {
     ScientistVo vo = modelMapper.map(reqDto, ScientistVo.class);
     scientistDao.add(vo);
     return ResponseEntity.ok().body(null);
@@ -116,6 +165,6 @@ public class ScientistController {
 //      itemService.delete(id);
 //      return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 //  }
-  
- 
+
+
 }

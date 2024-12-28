@@ -19,4 +19,6 @@ public class ScientistResDto {
   public static class ScientistList {
     private List<Scientist> list;
   }
+  
+  
 }
